@@ -12,6 +12,7 @@ export class LoginPage {
     deleteBtn;
     accountdeletedHeading;
     errorMsg;
+    logoutBtn;
 
     constructor(page: Page){
         this.page = page;
@@ -24,7 +25,7 @@ export class LoginPage {
         this.deleteBtn=this.page.locator('a[href="/delete_account"]');
         this.accountdeletedHeading=page.getByRole('heading',{name:"Account Deleted!"});
         this.errorMsg=page.getByText('Your email or password is incorrect!');
-
+        this.logoutBtn=page.locator('a[href="/logout"]');
 
      }
     async goto(){
@@ -50,6 +51,10 @@ export class LoginPage {
     }
     async ensureErrorMsg(){
         await expect(this.errorMsg).toBeVisible();
+    }
+    async logoutuser() {
+        await this.logoutBtn.click();
+        await expect(this.page).toHaveURL(process.env.WEBSITE_URL!+"login");   
     }
 
 }
