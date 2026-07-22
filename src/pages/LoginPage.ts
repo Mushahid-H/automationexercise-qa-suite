@@ -11,6 +11,7 @@ export class LoginPage {
     ensureUserIsLoggedIn;
     deleteBtn;
     accountdeletedHeading;
+    errorMsg;
 
     constructor(page: Page){
         this.page = page;
@@ -22,6 +23,7 @@ export class LoginPage {
         this.ensureUserIsLoggedIn=this.page.locator('i[class="fa fa-user"]');
         this.deleteBtn=this.page.locator('a[href="/delete_account"]');
         this.accountdeletedHeading=page.getByRole('heading',{name:"Account Deleted!"});
+        this.errorMsg=page.getByText('Your email or password is incorrect!');
 
 
      }
@@ -31,9 +33,9 @@ export class LoginPage {
     async ensureHomePage() {
         await expect(this.page).toHaveTitle('Automation Exercise');
     }
-    async loginUser(){
-        await this.emailField.fill(process.env.LOGIN_EMAIL!);
-        await this.passwordField.fill(process.env.LOGIN_PASS!);
+    async loginUser(email:string,password:string){
+        await this.emailField.fill(email);
+        await this.passwordField.fill(password);
         await this.submitBtn.click();
 
     }
@@ -45,6 +47,9 @@ export class LoginPage {
     }
     async ensureAccountDeleted() {
         await expect(this.accountdeletedHeading).toBeVisible();
+    }
+    async ensureErrorMsg(){
+        await expect(this.errorMsg).toBeVisible();
     }
 
 }
