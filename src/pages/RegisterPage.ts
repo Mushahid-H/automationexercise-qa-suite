@@ -29,6 +29,7 @@ export class RegisterPage {
     accountdeletedHeading;
     continueBtn;
     deleteBtn;
+    errorMsg;
     page: Page;
 
 
@@ -59,6 +60,7 @@ export class RegisterPage {
         this.continueBtn=page.locator('a[data-qa="continue-button"]');
         this.deleteBtn=page.locator('a[href="/delete_account"]');
         this.accountdeletedHeading=page.getByRole('heading',{name:"Account Deleted!"});
+        this.errorMsg=page.getByText('Email Address already exist!')
 
     }
     async goto() {
@@ -114,6 +116,9 @@ export class RegisterPage {
     }
     async ensureAccountDeleted() {
         await expect(this.accountdeletedHeading).toBeVisible();
+    }
+    async ensureErrorMsg(){
+        await expect(this.errorMsg).toBeVisible();
     }
 
 }
