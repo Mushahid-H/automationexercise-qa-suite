@@ -12,6 +12,8 @@ export class ProductsPage {
     productAvailability;
     productCondition;
     productBrand;
+    searchInput;
+    submitSearch;
 
     constructor(page: Page){
         this.page = page;
@@ -24,6 +26,8 @@ export class ProductsPage {
         this.productAvailability=page.locator('b:has-text("Availability:")');
         this.productCondition=page.locator('b:has-text("Condition:")');
         this.productBrand=page.locator('b:has-text("Brand:")');
+        this.searchInput=page.locator('#search_product');
+        this.submitSearch=page.locator('#submit_search');
     }
      async goto(){
         await this.page.goto(process.env.WEBSITE_URL!);
@@ -31,9 +35,11 @@ export class ProductsPage {
     async ensureHomePage() {
         await expect(this.page).toHaveTitle('Automation Exercise');
     }
-    async productsDetails() {
+    async productClick(){
         this.productsBtn.click();
         await expect(this.productHeading).toBeVisible();
+    }
+    async productsDetails() {
         this.viewProductBtn.click();
         await expect(this.productName).toBeVisible();
         await expect(this.productCategory).toBeVisible();
@@ -41,5 +47,11 @@ export class ProductsPage {
         await expect(this.productAvailability).toBeVisible();
         await expect(this.productCondition).toBeVisible();
         await expect(this.productBrand).toBeVisible();
+    }
+    async productSearch(searchTerm:string) {
+        await this.searchInput.fill(searchTerm);
+        await this.submitSearch.click();
+        await expect(this.page).toHaveURL(process.env.WEBSITE_URL!+"products?search="+searchTerm);
+        
     }
 }
