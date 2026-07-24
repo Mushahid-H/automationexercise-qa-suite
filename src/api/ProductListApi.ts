@@ -8,10 +8,13 @@ export class ProductListApi {
         this.request = request;
     }
     async getProductList(): Promise<APIResponse> {
-    return await this.request.get(`${process.env.WEBSITE_URL}/api/productsList`, {
-        headers: {
-            'Accept': 'application/json',
-        },
-    });
-}
+        return await this.request.get(`${process.env.WEBSITE_URL}/api/productsList`, {
+            headers: {
+                'Accept': 'application/json',
+            },
+        });
+    }
+    async postProductList():Promise<APIResponse>{
+        return await this.request.post(`${process.env.WEBSITE_URL}/api/productsList`);
+    }
 }
