@@ -29,6 +29,8 @@ export class PlaceOrder {
     deleteBtn;
     accountdeletedHeading;
     errorMsg;
+    login;
+    closemodal;
 
 
 
@@ -58,24 +60,31 @@ export class PlaceOrder {
         this.deleteBtn=page.locator('a[href="/delete_account"]');
         this.accountdeletedHeading=page.getByRole('heading',{name:"Account Deleted!"});
         this.errorMsg=page.getByText('Your email or password is incorrect!');
+        this.login=page.locator('a[href="/login"]');
+        this.closemodal=this.modal.locator('button[data-dismiss="modal"]');
 
         
     }
    
-    async RegisterWhileCheckout() {
+    async addProductToCart() {
         await this.product2Btn.hover();
         await this.addToCartBtn.click();
         await expect(this.modal).toBeVisible();
         await expect(this.modal.locator('.modal-title')).toHaveText('Added!');
+        await this.closemodal.click();
+    }
+    async ProceedToCheckout() {
         await this.viewCartBtn.click();
-        await this.proceedToCheckoutBtn.click();
-        await this.loginFromCheckout.click();
 
+        await this.proceedToCheckoutBtn.click();  
 
+    }
+    async clickLogin(){
+         await this.login.click();
     }
     async register() {
         const registerPage = new RegisterPage(this.page);
-        await registerPage.registerUser('josh','joshodigital@gmail.com');
+        await registerPage.registerUser('josh','joshodigitallyyi@gmail.com');
         await registerPage.ensureSubmissionSuccess();
         await registerPage.fillAccountInformation('123456','josh','smith','123 street','California','Los Angeles','90001','1234567890','1','January','1990','United States');
         await registerPage.selectDateOfBirth('1','January','1990');
