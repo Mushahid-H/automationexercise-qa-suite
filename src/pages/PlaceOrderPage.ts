@@ -1,9 +1,9 @@
 import {expect,Page} from "@playwright/test";
-import {RegisterPage} from "../../src/pages/RegisterPage.ts";
+import {RegisterPage} from "./RegisterPage.ts";
 import dotenv from "dotenv";
 dotenv.config();
 
-export class PlaceOrder {
+export class PlaceOrderPage {
     page: Page;
     productsBtn;
     product2Btn;
@@ -32,8 +32,6 @@ export class PlaceOrder {
     login;
     closemodal;
 
-
-
     constructor(page: Page){
         this.page = page;
         this.productsBtn= page.locator('a[href="/products"]');
@@ -61,9 +59,7 @@ export class PlaceOrder {
         this.accountdeletedHeading=page.getByRole('heading',{name:"Account Deleted!"});
         this.errorMsg=page.getByText('Your email or password is incorrect!');
         this.login=page.locator('a[href="/login"]');
-        this.closemodal=this.modal.locator('button[data-dismiss="modal"]');
-
-        
+        this.closemodal=this.modal.locator('button[data-dismiss="modal"]');   
     }
    
     async addProductToCart() {
@@ -75,9 +71,7 @@ export class PlaceOrder {
     }
     async ProceedToCheckout() {
         await this.viewCartBtn.click();
-
         await this.proceedToCheckoutBtn.click();  
-
     }
     async clickLogin(){
          await this.login.click();
@@ -93,8 +87,6 @@ export class PlaceOrder {
         await registerPage.ensureAccountCreated();
         await registerPage.continueBtn.click();
         await this.loggedInas.isVisible();
-        
-
     }
     async placeOrder() {
         await this.cartBtn.click();
@@ -114,7 +106,5 @@ export class PlaceOrder {
         this.year.fill(year);
         await this.payAndConfirmOrderBtn.click();
         await expect(this.orderPlacedSuccessfullyHeading).toHaveText('Your order has been placed successfully!');
-    
     }
-    
 }

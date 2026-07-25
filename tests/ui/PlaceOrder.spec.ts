@@ -1,11 +1,11 @@
 import test from '@playwright/test';
 import { AddToCartPage, } from '../../src/pages/AddToCartPage';
-import {PlaceOrder} from '../../src/pages/PlaceOrder';
+import {PlaceOrderPage} from '../../src/pages/PlaceOrderPage';
 import {LoginPage} from '../../src/pages/LoginPage'
 test.describe('Place Order Functionality', () => {
     test('Register While Checkout', async ({ page }) => {
         const addToCartPage = new AddToCartPage(page);
-        const placeOrder = new PlaceOrder(page);
+        const placeOrder = new PlaceOrderPage(page);
         await addToCartPage.goto();
         await addToCartPage.ensureHomePage();
         // await addToCartPage.addToCart();
@@ -19,7 +19,7 @@ test.describe('Place Order Functionality', () => {
     });
     test('Register before checkout', async ({page}) => {
         const addToCartPage = new AddToCartPage(page);
-        const placeOrder = new PlaceOrder(page);
+        const placeOrder = new PlaceOrderPage(page);
         await addToCartPage.goto();
         await addToCartPage.ensureHomePage();
         await placeOrder.clickLogin();
@@ -29,7 +29,7 @@ test.describe('Place Order Functionality', () => {
     });
     test('Login before checkout',async ({page})=>{
         const addToCartPage = new AddToCartPage(page);
-        const placeOrder = new PlaceOrder(page);
+        const placeOrder = new PlaceOrderPage(page);
         const loginPage=new LoginPage(page);
         await addToCartPage.goto();
         await addToCartPage.ensureHomePage();
