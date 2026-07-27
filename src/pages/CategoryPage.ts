@@ -16,8 +16,8 @@ export class CategoryPage {
         this.page=page;
         this.categoryHeading=page.getByRole('heading', { name: 'Category' })
         this.categories=page.locator('.left-sidebar .category-products');
-        this.womenTitle=page.locator('a[href="#Women"]');
-        this.menTitle=page.locator('a[href="#Men"]');
+        this.womenTitle = page.locator('#accordian a[href="#Women"] fa-plus');
+        this.menTitle=page.getByRole('heading', { name: 'Men', exact: true });
         this.dresslink=page.locator('#Women').locator('a[href="/category_products/1"]');
         this.Tshritlink=page.locator('#Men').getByText('Tshirts');
 
@@ -26,8 +26,9 @@ export class CategoryPage {
 
     }
     async goto(){
-        await this.page.goto(process.env.WEBSITE_URL!);
-    }
+    await this.page.goto(process.env.WEBSITE_URL!);
+    await this.page.waitForFunction(() => typeof (window as any).jQuery !== 'undefined');
+}
     async ensureHomePage() {
         await expect(this.page).toHaveTitle('Automation Exercise');
     }
@@ -35,28 +36,16 @@ export class CategoryPage {
         await expect(this.categoryHeading).toHaveText('Category');
         await expect(this.categories).toBeVisible();
     }
-    // async clickWomenCategoryDress(){
-    //     await this.womenTitle.click();
-    //     await expect(this.dresslink).toBeVisible();
-    //     await this.dresslink.click();
-    //     // await this.page.waitForLoadState('networkidle');
-    // }
-    async clickWomenCategoryDress() {
+    async clickWomenCategoryDress(){
         await this.womenTitle.click();
-
-        console.log("Women panels:", await this.page.locator('#Women').count());
-
-        const dress = this.page.locator('#Women a', { hasText: 'Dress' });
-
-        console.log("Dress visible:", await dress.isVisible());
-
-        await dress.click();
+        // await expect(this.dresslink).toBeVisible();
+        await this.dresslink.click();
     }
+    
     async clickMenCategoryTshirts(){
         await this.menTitle.click();
         await expect(this.Tshritlink).toBeVisible();
         await this.Tshritlink.click();
-        // await this.page.waitForLoadState('networkidle');
     }
     async ensureCateogyWomen(){
         await expect(this.categoryTitle).toHaveText('Women -  Dress Products');
