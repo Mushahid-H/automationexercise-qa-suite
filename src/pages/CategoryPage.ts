@@ -16,19 +16,18 @@ export class CategoryPage {
         this.page=page;
         this.categoryHeading=page.getByRole('heading', { name: 'Category' })
         this.categories=page.locator('.left-sidebar .category-products');
-        this.womenTitle = page.locator('#accordian a[href="#Women"] fa-plus');
-        this.menTitle=page.getByRole('heading', { name: 'Men', exact: true });
+        this.womenTitle = page.locator('#accordian a[href="#Women"]');
+        this.menTitle = page.locator('#accordian a[href="#Men"]');
         this.dresslink=page.locator('#Women').locator('a[href="/category_products/1"]');
-        this.Tshritlink=page.locator('#Men').getByText('Tshirts');
+        this.Tshritlink=page.locator('#Men').locator('a[href="/category_products/3"]');
 
         this.categoryTitle=page.getByText('Women -  Dress Products')
         this.categoryTitle2=page.getByText('Men -  Tshirts Products')
 
     }
     async goto(){
-    await this.page.goto(process.env.WEBSITE_URL!);
-    await this.page.waitForFunction(() => typeof (window as any).jQuery !== 'undefined');
-}
+        await this.page.goto(process.env.WEBSITE_URL!);
+    }
     async ensureHomePage() {
         await expect(this.page).toHaveTitle('Automation Exercise');
     }
@@ -36,15 +35,12 @@ export class CategoryPage {
         await expect(this.categoryHeading).toHaveText('Category');
         await expect(this.categories).toBeVisible();
     }
-    async clickWomenCategoryDress(){
-        await this.womenTitle.click();
-        // await expect(this.dresslink).toBeVisible();
+    async clickWomenCategoryDress() {
         await this.dresslink.click();
-    }
+}
     
     async clickMenCategoryTshirts(){
-        await this.menTitle.click();
-        await expect(this.Tshritlink).toBeVisible();
+        
         await this.Tshritlink.click();
     }
     async ensureCateogyWomen(){
