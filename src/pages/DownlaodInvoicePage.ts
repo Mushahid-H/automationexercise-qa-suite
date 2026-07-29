@@ -10,17 +10,21 @@ export class DownlaodInvoicePage {
 
     constructor(page: Page) {
         this.page = page;
-        this.downloadInvoiceBtn = page.locator('a[href^="/download_invoice/"]');
+        this.downloadInvoiceBtn = page.getByRole('link', {
+            name: 'Download Invoice'
+        });
         this.continueBtn = page.locator('a[data-qa="continue-button"]');
     }
 
     async downloadInvoice() {
+        await expect(this.downloadInvoiceBtn).toBeVisible({ timeout: 15000 });
+
         
-        const downloadPromise = this.page.waitForEvent('download');
+        const [download] = await Promise.all([
+        this.page.waitForEvent("download"),
+        this.downloadInvoiceBtn.click(),
+        ]);
 
-        await this.downloadInvoiceBtn.click();
-
-        const download = await downloadPromise;
 
         // Suggested filename
         console.log(await download.suggestedFilename());

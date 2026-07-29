@@ -78,7 +78,7 @@ export class PlaceOrderPage {
     }
     async register() {
         const registerPage = new RegisterPage(this.page);
-        await registerPage.registerUser('josh','joshodigitallyyilov@gmail.com');
+        await registerPage.registerUser('josh','joshodigitallyyiloveyo@gmail.com');
         await registerPage.ensureSubmissionSuccess();
         await registerPage.fillAccountInformation('123456','josh','smith','123 street','California','Los Angeles','90001','1234567890','1','January','1990','United States');
         await registerPage.selectDateOfBirth('1','January','1990');
@@ -94,9 +94,12 @@ export class PlaceOrderPage {
         await this.commentBox.fill('this is my order bro.');
         await this.placeOrderBtn.click();
         await this.fillCardInfo('John Doe', '1234567890123456', '123', '01', '2025');
+        
+
+    }
+    async deleteAccount() {
         await this.deleteBtn.click();
         await this.accountdeletedHeading.isVisible();
-
     }
     async fillCardInfo(name:string, cardNumber:string, cvc:string, month:string, year:string) {
         this.nameOnCard.fill(name);

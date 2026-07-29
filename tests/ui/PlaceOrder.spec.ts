@@ -26,6 +26,7 @@ test.describe('Place Order Functionality', () => {
         await placeOrder.register();
         await placeOrder.addProductToCart();
         await placeOrder.placeOrder();
+        await placeOrder.deleteAccount();
     });
     test('Login before checkout',async ({page})=>{
         const addToCartPage = new AddToCartPage(page);
@@ -38,6 +39,7 @@ test.describe('Place Order Functionality', () => {
         await loginPage.ensureUserLoggedIn();
         await placeOrder.addProductToCart();
         await placeOrder.placeOrder();
+        await placeOrder.deleteAccount();
 
     })
 
