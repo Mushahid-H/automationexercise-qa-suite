@@ -19,19 +19,13 @@ export class DownlaodInvoicePage {
     async downloadInvoice() {
         await expect(this.downloadInvoiceBtn).toBeVisible({ timeout: 15000 });
 
-        
         const [download] = await Promise.all([
-        this.page.waitForEvent("download"),
-        this.downloadInvoiceBtn.click(),
+            this.page.waitForEvent("download"),
+            this.downloadInvoiceBtn.click(),
         ]);
 
-
-        // Suggested filename
-        console.log(await download.suggestedFilename());
-
-        // Save the file
-        await download.saveAs(`downloads/${await download.suggestedFilename()}`);
-        const filePath = `downloads/${await download.suggestedFilename()}`;
+        const filePath = `downloads/${download.suggestedFilename()}`;
+        await download.saveAs(filePath);
 
         expect(fs.existsSync(filePath)).toBeTruthy();
     }
