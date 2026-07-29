@@ -78,7 +78,7 @@ export class PlaceOrderPage {
     }
     async register() {
         const registerPage = new RegisterPage(this.page);
-        await registerPage.registerUser('josh','joshodigitallyyi@gmail.com');
+        await registerPage.registerUser('josh','joshodigitallyyilov@gmail.com');
         await registerPage.ensureSubmissionSuccess();
         await registerPage.fillAccountInformation('123456','josh','smith','123 street','California','Los Angeles','90001','1234567890','1','January','1990','United States');
         await registerPage.selectDateOfBirth('1','January','1990');
