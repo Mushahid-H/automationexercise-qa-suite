@@ -108,6 +108,6 @@ export class PlaceOrderPage {
         await this.month.fill(month);
         await this.year.fill(year);
         await this.payAndConfirmOrderBtn.click();
-        // await expect(this.orderPlacedSuccessfullyHeading).toHaveText('Your order has been placed successfully!');
+        await expect(this.orderPlacedSuccessfullyHeading).toHaveText('Your order has been placed successfully!');
     }
 }
