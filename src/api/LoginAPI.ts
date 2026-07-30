@@ -27,5 +27,12 @@ export class LoginAPI{
                 password: pass
             }
         })
+    }
+    async deleteLogin(): Promise<APIResponse>{
+        return await this.request.delete(`${process.env.WEBSITE_URL}api/verifyLogin`,{
+            headers:{
+                'Accept':'application/json',
+            }
+        })
     }  
 }
