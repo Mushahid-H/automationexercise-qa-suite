@@ -17,5 +17,15 @@ export class LoginAPI{
                 password: password
             }
         })
+    }
+    async loginUserWithoutParams(pass:string): Promise<APIResponse>{
+        return await this.request.post(`${process.env.WEBSITE_URL}api/verifyLogin`,{
+            headers:{
+                'Accept':'application/json',
+            },
+            form:{
+                password: pass
+            }
+        })
     }  
 }

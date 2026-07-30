@@ -11,5 +11,13 @@ test.describe('Login Api', () => {
         const data=await response.json();
         expect(data.responseCode).toBe(200);
         expect(data.message).toBe('User exists!');
+    });
+    test('Login without Params',async ({request})=>{
+        const loginAPI = new LoginAPI(request);
+        const response =  await loginAPI.loginUserWithoutParams(process.env.LOGIN_PASS!);
+        expect(response.status()).toBe(200);
+        const data=await response.json();
+        expect(data.responseCode).toBe(400);
+        expect(data.message).toBe('Bad request, email or password parameter is missing in POST request.');
     })
 })
