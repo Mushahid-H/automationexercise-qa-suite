@@ -17,5 +17,13 @@ export class SearchAPI{
             }
         })
     }
+    async searchWithoutParams(): Promise<APIResponse> {
+        return await this.request.post(`${process.env.WEBSITE_URL}api/searchProduct`,{
+            headers:{
+                'Accept': 'application/json',
+            }
+            
+        })
+    }
 
 }

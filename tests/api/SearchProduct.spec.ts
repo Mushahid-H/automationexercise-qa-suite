@@ -18,5 +18,13 @@ test.describe('Search Product Api', () => {
             expect(product.name.toLowerCase()).toContain('t-shirt');
         }
 
-    });  
+    });
+    test('Search without params',async ({request}) => {
+        const searchAPI = new SearchAPI(request);
+        const response = await searchAPI.searchWithoutParams();
+        expect(response.status()).toBe(200);
+        const data = await response.json();
+        expect(data.responseCode).toBe(400);
+        expect(data.message).toBe('Bad request, search_product parameter is missing in POST request.');
+    })  
 });
