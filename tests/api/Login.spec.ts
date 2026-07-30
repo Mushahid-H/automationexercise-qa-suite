@@ -28,4 +28,12 @@ test.describe('Login Api', () => {
         expect(data.responseCode).toBe(405);
         expect(data.message).toBe('This request method is not supported.');
     });
+    test('Post to Verify login',async ({request}) => {
+        const loginAPI = new LoginAPI(request);
+        const response = await loginAPI.postToLogin('email@gmail.com','wrongPass');
+        expect(response.status()).toBe(200);
+        const data = await response.json();
+        expect(data.responseCode).toBe(404);
+        expect(data.message).toBe('User not found!');
+    });
 })
