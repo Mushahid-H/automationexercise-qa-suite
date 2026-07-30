@@ -42,4 +42,14 @@ export class UserAccountAPI{
             }
         })
     }
+    async getUserDetails(email:string): Promise<APIResponse>{
+        return await this.request.get(process.env.WEBSITE_URL+'api/getUserDetailByEmail',{
+            headers:{
+                'Accept': 'application/json',
+            },
+            params:{
+                email
+            }
+        })
+    }
 }

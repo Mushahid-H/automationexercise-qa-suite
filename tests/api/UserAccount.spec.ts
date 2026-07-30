@@ -10,7 +10,8 @@ test.describe('User Account APIs', () => {
         expect(response.status()).toBe(200);
         const data=await response.json();
         expect(data.responseCode).toBe(200);
-        expect(data.message).toBe('User deleted!');
+        console.log(data);
+        expect(data.message).toBe('Account deleted!');
     });
     test('Update User account',async ({request}) => {
         const updateUserAPI = new UserAccountAPI(request);
@@ -20,5 +21,14 @@ test.describe('User Account APIs', () => {
         expect(data.responseCode).toBe(200);
         expect(data.message).toBe('User updated!');
 
+    });
+    test('Get User Details',async ({request}) => {
+        const getUserDetailsAPI = new UserAccountAPI(request);
+        const response = await getUserDetailsAPI.getUserDetails(process.env.LOGIN_EMAIL!);
+        expect(response.status()).toBe(200);
+        const data=await response.json();
+        expect(data.responseCode).toBe(200);
+        expect(data.user.email).toBe(process.env.LOGIN_EMAIL!);
+        expect(data.user.name).toBe('John Doe');
     });
 })
