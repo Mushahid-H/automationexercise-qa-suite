@@ -13,5 +13,12 @@ test.describe('Brands List Api', () => {
         expect(responseBody.brands[0]).toHaveProperty('id');
         expect(responseBody.brands[0]).toHaveProperty('brand');
     });
-
-});
+    test('PUT ALL BRANDS', async ({request}) => {
+        const brandsAPI = new BrandsAPI(request);
+        const response = await brandsAPI.putBrands();
+        expect(response.status()).toBe(200);
+        const responseBody = await response.json();
+        expect(responseBody.responseCode).toBe(405);
+        expect(responseBody.message).toBe('This request method is not supported.');
+    });
+})

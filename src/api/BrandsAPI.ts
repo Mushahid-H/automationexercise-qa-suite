@@ -14,4 +14,11 @@ export class BrandsAPI {
         }
     })
   }
+  async putBrands(): Promise<APIResponse> {
+    return await this.request.put(`${process.env.WEBSITE_URL}api/brandsList`,{
+        headers:{
+            'Accept': 'application/json',
+        }
+    })
+  }
 }
